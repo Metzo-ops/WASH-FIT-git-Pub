@@ -2,18 +2,20 @@
 
 # 1. app.py (Back-end Flask principal)
 from flask import Flask, render_template, request, redirect, url_for
-import psycopg2
+import psycopg2, os
 
 app = Flask(__name__)
 
 # Configuration de la base de données PostgreSQL
+
 conn = psycopg2.connect(
-    dbname="washfit_db",
-    user="postgres",
-    password="password",
-    host="localhost",
-    port="5432"
+    dbname=os.environ.get("DB_NAME"),
+    user=os.environ.get("DB_USER"),
+    password=os.environ.get("DB_PASSWORD"),
+    host=os.environ.get("DB_HOST"),
+    port=os.environ.get("DB_PORT")
 )
+
 cursor = conn.cursor()
 
 @app.route('/')
