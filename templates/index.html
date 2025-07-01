@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>WASH-FIT - Évaluations</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container py-4">
+    <h1 class="mb-4">Liste des évaluations</h1>
+
+    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addModal">Ajouter une évaluation</button>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-light">
+            <tr>
+                <th>Indicateur</th>
+                <th>Localité</th>
+                <th>Score</th>
+                <th>Commentaire</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for eval in evaluations %}
+            <tr>
+                <td>{{ eval[1] }}</td>
+                <td>{{ eval[2] }}</td>
+                <td class="text-center">{{ eval[3] }}</td>
+                <td>{{ eval[4] }}</td>
+                                    <td>
+                        <form action="/supprimer/{{ eval[0] }}" method="POST" onsubmit="return confirm('Supprimer cette évaluation ?');">
+                            <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                        </form>
+                    </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="POST" action="/ajouter">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addModalLabel">Nouvelle évaluation</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="indicateur" class="form-label">Indicateur</label>
+                            <select id="indicateur" name="indicateur" class="form-select" required>
+                                <optgroup label="Hygiène et assainissement">
+                                    <option>Accès à des toilettes fonctionnelles</option>
+                                    <option>Présence de savon et d’eau pour lavage des mains</option>
+                                    <option>Fréquence de nettoyage des sols et surfaces</option>
+                                    <option>Gestion des déchets biomédicaux</option>
+                                </optgroup>
+                                <optgroup label="Eau">
+                                    <option>Accès à une source d’eau potable</option>
+                                    <option>Test de qualité de l’eau</option>
+                                    <option>Quantité disponible par patient/jour</option>
+                                </optgroup>
+                                <optgroup label="Gestion des déchets">
+                                    <option>Systèmes de tri et d’élimination</option>
+                                    <option>Protection des personnels de nettoyage</option>
+                                </optgroup>
+                                <optgroup label="Infrastructure">
+                                    <option>Présence d’un responsable WASH</option>
+                                    <option>Maintenance préventive</option>
+                                    <option>Disponibilité d’énergie et ventilation</option>
+                                </optgroup>
+                                <optgroup label="Équité et genre">
+                                    <option>Toilettes séparées H/F</option>
+                                    <option>Accessibilité aux personnes handicapées</option>
+                                </optgroup>
+                                <optgroup label="Gouvernance et gestion">
+                                    <option>Existence d’un comité WASH</option>
+                                    <option>Budget dédié</option>
+                                    <option>Plans de réponse aux urgences</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="localite" class="form-label">Établissement de santé</label>
+                            <select id="localite" name="localite" class="form-select" required>
+                                <option value="Poste de santé de TAIF (Commune de Diamaguene Sicap Mbao, Dakar)">Poste de santé de TAIF (Commune de Diamaguene Sicap Mbao, Dakar)</option>
+                                <option value="Centre de santé de Pikine">Centre de santé de Pikine (Commune de Pikine Est, Pikine)</option>
+                                <!-- <option value="District sanitaire de Rufisque">District sanitaire de Rufisque (Commune de Rufisque Ouest, Rufisque)</option>
+                                <option value="Centre de santé de Kolda">Centre de santé de Kolda (Commune de Kolda, Kolda)</option>
+                                <option value="Poste de santé de Sédhiou">Poste de santé de Sédhiou (Commune de Sédhiou, Sédhiou)</option> -->
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="score" class="form-label">Score (0-5)</label>
+                            <input type="number" id="score" name="score" class="form-control" min="0" max="5" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="commentaire" class="form-label">Commentaire</label>
+                            <textarea id="commentaire" name="commentaire" class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-success">Enregistrer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

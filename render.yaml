@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: washfit-app
+    env: python
+    plan: free
+    buildCommand: ""
+    startCommand: gunicorn app:app
+    envVars:
+      - key: DB_NAME
+        value: washfit_db
+      - key: DB_USER
+        value: postgres
+      - key: DB_PASSWORD
+        value: password
+      - key: DB_HOST
+        fromDatabase:
+            name: washfit-db
+            property: host
+      - key: DB_PORT
+        fromDatabase:
+            name: washfit-db
+            property: port
+
+databases:
+  - name: washfit-db
+    plan: free

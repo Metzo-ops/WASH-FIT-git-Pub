@@ -1,0 +1,36 @@
+body {
+    background-color: #f8f9fa;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .modal-dialog {
+        max-width: 90%;
+        margin: 1rem auto;
+    }
+    .form-label {
+        font-size: 0.9rem;
+    }
+    .form-control, .form-select {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .table-responsive {
+        font-size: 0.85rem;
+    }
+    .modal-content {
+        padding: 0.5rem;
+    }
+    .modal-title {
+        font-size: 1rem;
+    }
+}
